@@ -1,11 +1,16 @@
 [phases.setup]
-nixPkgs = ['php82', 'php82Packages.composer', 'mariadb']
+nixPkgs = ['php82', 'mariadb', 'curl', 'git']
+
+[phases.install]
+cmds = [
+  'curl -sS https://getcomposer.org/installer | php',
+  'php composer.phar install --no-dev --optimize-autoloader'
+]
 
 [phases.build]
 cmds = [
-  'composer install --no-dev --optimize-autoloader',
   'php artisan config:cache',
-  'php artisan migrate --force'
+  'php artisan migrate --force || true'
 ]
 
 [phases.start]
