@@ -1,11 +1,11 @@
 [phases.setup]
-nixPkgs = ['php', 'php81Packages.composer', 'mysql']
+nixPkgs = ['php', 'composer', 'mariadb']
 
 [phases.build]
 cmds = [
-  "composer install --no-dev --optimize-autoloader",
-  "php artisan config:cache"
+  'composer install --no-dev --optimize-autoloader',
+  'php artisan config:cache'
 ]
 
-[start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+[phases.start]
+cmd = 'php artisan serve --host 0.0.0.0 --port $PORT'
